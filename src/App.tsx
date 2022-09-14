@@ -1,24 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
+import Login from "./features/login/Login";
+import { Route, Routes } from "react-router-dom";
+import CategoriesHomePage from "./features/Categories/CategoriesHomePage";
+import Layout from "./layout/Layout";
+import ProductHomePage from "./features/product/ProductHomePage";
+import ProtectedRoutes from "./routing/ProtectedRoutes";
+import { useCartContext } from "./context/cart-context";
 
 function App() {
+  const cartContext = useCartContext();
+
+  useEffect(() => {
+    console.log(cartContext?.state.cart);
+  }, [cartContext?.state.cart]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route element={<Layout />}>
+            <Route path="/" element={<CategoriesHomePage />} />
+            <Route path="/products" element={<ProductHomePage />} />
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }
