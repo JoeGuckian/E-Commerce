@@ -6,6 +6,11 @@ To run the project:
 
 To run the tests `npm test`
 
+The login token is stored is session storage. If you want to test the login page again please clear session storage and refresh
+
+Username: `mor_2314`  
+Password: `83r5^_`
+
 # Comments
 
 1. Error handling example is in the login page component. None of the other api calls used for this test seemed to throw an error when incorrect parameters were passed.
